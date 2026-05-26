@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiro al Blanco - México</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @font-face {
+            font-family: 'MexicoFont';
+            src: url('mexicocss.otf') format('opentype');
+            font-weight: normal;
+        }
+        @font-face {
+            font-family: 'MexicoFont';
+            src: url('mexicocssBlack.otf') format('opentype');
+            font-weight: 800;
+        }
+
+        body { 
+            font-family: 'MexicoFont', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            /* Gradiente vertical simulando as faixas da bandeira */
+            background: linear-gradient(90deg, 
+                #006847 33.33%, 
+                #ffffff 33.33%, #ffffff 66.66%, 
+                #ce1126 66.66%
+            );
+            background-attachment: fixed;
+        }
+
+        .blur-card { 
+            background: rgba(255, 255, 255, 0.9); 
+            backdrop-filter: blur(10px); 
+            border-radius: 24px; 
+            border: 1px solid rgba(255, 255, 255, 0.4); 
+            width: 85%;
+            max-width: 400px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        h1 { font-weight: 800; }
+    </style>
+</head>
+<body>
+
+    <div class="blur-card">
+        <h1 class="text-3xl text-green-900 mb-6">🎯 Tiro al Blanco</h1>
+        
+        <input id="nome" placeholder="Seu nome" class="w-full bg-black/5 border border-black/10 rounded-xl p-3 mb-4 outline-none text-center">
+        
+        <button onclick="iniciar()" class="w-full py-3 bg-green-800 text-white rounded-xl font-bold hover:bg-green-900 transition mb-6">
+            Começar
+        </button>
+
+        <div class="flex justify-center gap-8 text-sm">
+            <button onclick="toggleRanking()" class="text-green-900 font-bold uppercase">Ranking</button>
+            <button onclick="showStats()" class="text-red-700 font-bold uppercase">📊 Stats</button>
+        </div>
+    </div>
+
+    <script>
+        function iniciar() {
+            // Lógica do jogo aqui
+            console.log("Iniciando...");
+        }
+
+        function toggleRanking() {
+            // Lógica do ranking aqui
+        }
+
+        function showStats() {
+            // Lógica das estatísticas aqui
+        }
+    </script>
+</body>
+</html>
+
+
+
