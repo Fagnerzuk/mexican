@@ -67,19 +67,68 @@
     </div>
 
     <script>
+        let rodada = 1, total = 0, nome = "";
+        let players = [];
+
         function iniciar() {
-            // Lógica do jogo aqui
-            console.log("Iniciando...");
+            nome = document.getElementById("nome").value || "Jogador";
+            document.getElementById("inicio").classList.add("hidden");
+            document.getElementById("jogo").classList.remove("hidden");
+            document.getElementById("player").innerText = "👤 " + nome;
+            atualizarBarra();
+        }
+
+        function atualizarBarra() {
+            document.getElementById("rodadaTexto").innerText = "Rodada " + rodada + "/5" + (rodada > 3 ? " (x2)" : "");
+            document.getElementById("barra").style.width = ((rodada - 1) / 5) * 100 + "%";
+        }
+
+        function jogar(pts) {
+            if(rodada > 3) pts *= 2;
+            total += pts;
+            rodada++;
+            if(rodada > 5) finalizar(); else atualizarBarra();
+        }
+
+        function finalizar() {
+            document.getElementById("jogo").classList.add("hidden");
+            document.getElementById("resultado").classList.remove("hidden");
+            const msg = document.getElementById("msgMotivacional");
+            msg.innerText = total >= 100 ? "¡Parabéns, você ganhou! 🏆" : "Não foi dessa vez... ¡Ánimo!";
+            document.getElementById("pontosFinal").innerText = "Total: " + total + " pontos";
+        }
+
+        function salvarEReiniciar() {
+            if(total >= 50) {
+                players.push({name: nome, pts: total});
+                players.sort((a, b) => b.pts - a.pts);
+                alert("Salvo com sucesso!");
+            } else { alert("Mínimo de 50 pontos para o ranking!"); }
+            reiniciar();
         }
 
         function toggleRanking() {
-            // Lógica do ranking aqui
+            const list = document.getElementById("rankingList");
+            const btn = document.getElementById("rankBtn");
+            list.classList.toggle("hidden");
+            btn.classList.toggle("text-yellow");
+            if(!list.classList.contains("hidden")) {
+                list.innerHTML = players.filter(p => p.pts >= 50).slice(0, 5).map((p, i) => 
+                    `<div class="flex justify-between border-b py-1"><span>${i+1}. ${p.name}</span><span>${p.pts} pts</span></div>`
+                ).join('');
+            }
         }
 
         function showStats() {
-            // Lógica das estatísticas aqui
+            document.getElementById("statsModal").classList.remove("hidden");
+            const g = document.getElementById("graph");
+            g.innerHTML = players.map(p => `<div style="height:${(p.pts/200)*100}%" class="w-full bg-green-700"></div>`).join('');
         }
-    </script>
+
+        function closeStats() { document.getElementById("statsModal").classList.add("hidden"); }
+        function reiniciar() { rodada = 1; total = 0; document.querySelectorAll('.blur-card').forEach(e => e.classList.add('hidden')); document.getElementById("inicio").classList.remove("hidden"); }
+                          
+</script>
 </body>
 </html>
 
